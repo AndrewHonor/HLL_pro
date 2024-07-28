@@ -3,10 +3,12 @@ from collections import OrderedDict
 import requests
 import psutil  # Для вимірювання пам'яті
 
+
 def cache(max_limit=64):
     """
     Декоратор для кешування результатів функцій
     """
+
     def internal(f):
         # Словник для зберігання кешованих результатів
         cache_dict = OrderedDict()
@@ -49,8 +51,10 @@ def cache(max_limit=64):
 
     return internal
 
+
 def measure_memory(f):
     """Декоратор для вимірювання використання пам'яті"""
+
     @wraps(f)
     def wrapper(*args, **kwargs):
         process = psutil.Process()
@@ -68,6 +72,7 @@ def fetch_url(url, first_n=100):
     res = requests.get(url)
     return res.content[:first_n] if first_n else res.content
 
+
 # Виклик функції:
 url_content = fetch_url("https://www.example.com", first_n=200)
 print("Закешований вміст:")
@@ -75,5 +80,3 @@ print(url_content)
 
 # Вивід кешу:
 fetch_url.print_cache()
-
-
