@@ -5,27 +5,7 @@ import psutil  # Для вимірювання пам'яті
 
 def cache(max_limit=64):
     """
-    Декоратор для кешування результатів функцій.
-
-    Параметри:
-        - max_limit (int): Максимальна кількість елементів у кеші (за замовчуванням 64).
-
-    Приклад використання:
-        @cache(max_limit=10)
-        def fetch_url(url, first_n=100):
-            \"\"\"Отримує вміст за вказаним URL\"\"\"
-            res = requests.get(url)
-            return res.content[:first_n] if first_n else res.content
-
-    Виклик функції:
-        url_content = fetch_url("https://www.example.com", first_n=200)
-        print(url_content)
-
-        # Вивід кешу:
-        fetch_url.print_cache()
-
-        # Вимірювання пам'яті:
-        fetch_url.measure_memory()
+    Декоратор для кешування результатів функцій
     """
     def internal(f):
         # Словник для зберігання кешованих результатів
@@ -64,19 +44,25 @@ def cache(max_limit=64):
             for key, value in cache_dict.items():
                 print(f"{key}: {value}")
 
-        def measure_memory():
-            """Вимірює використання пам'яті"""
-            process = psutil.Process()
-            memory_info = process.memory_info().rss
-            print(f"Використання пам'яті: {memory_info} байт")
-
         deco.print_cache = print_cache
-        deco.measure_memory = measure_memory
         return deco
 
     return internal
 
+def measure_memory(f):
+    """Декоратор для вимірювання використання пам'яті"""
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        process = psutil.Process()
+        memory_info = process.memory_info().rss
+        print(f"Використання пам'яті: {memory_info} байт")
+        return f(*args, **kwargs)
+
+    return wrapper
+
+
 @cache(max_limit=64)
+@measure_memory
 def fetch_url(url, first_n=100):
     """Отримує вміст за вказаним URL"""
     res = requests.get(url)
@@ -90,5 +76,4 @@ print(url_content)
 # Вивід кешу:
 fetch_url.print_cache()
 
-# Вимірювання пам'яті:
-fetch_url.measure_memory()
+
