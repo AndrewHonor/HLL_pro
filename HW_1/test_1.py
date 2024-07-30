@@ -10,13 +10,14 @@ def cache(max_limit=64):
     """
 
     def internal(f):
-        # Словник для зберігання кешованих результатів
-        cache_dict = OrderedDict()
-        # Словник для відстеження кількості використань ключів
-        usage_count = {}
+
 
         @wraps(f)
         def deco(*args, **kwargs):
+            # Словник для зберігання кешованих результатів
+            cache_dict = OrderedDict()
+            # Словник для відстеження кількості використань ключів
+            usage_count = {}
             # Створюємо унікальний ключ на основі аргументів
             cache_key = (args, tuple(kwargs.items()))
 
@@ -40,13 +41,7 @@ def cache(max_limit=64):
 
                 return result
 
-        def print_cache():
-            """Виводить весь кеш"""
-            print("Кеш:")
-            for key, value in cache_dict.items():
-                print(f"{key}: {value}")
 
-        deco.print_cache = print_cache
         return deco
 
     return internal
@@ -58,9 +53,12 @@ def measure_memory(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         process = psutil.Process()
-        memory_info = process.memory_info().rss
-        print(f"Використання пам'яті: {memory_info} байт")
-        return f(*args, **kwargs)
+        memory_info_do = process.memory_info().rss
+        result = f(*args, **kwargs)
+        memory_info_pisla = process.memory_info().rss
+        print(f"Використання пам'яті: {memory_info_pisla - memory_info_do} байт")
+
+        return result
 
     return wrapper
 
@@ -78,5 +76,3 @@ url_content = fetch_url("https://www.example.com", first_n=200)
 print("Закешований вміст:")
 print(url_content)
 
-# Вивід кешу:
-fetch_url.print_cache()
