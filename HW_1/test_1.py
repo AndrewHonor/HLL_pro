@@ -14,17 +14,12 @@ def cache(max_limit=64):
 
         @wraps(f)
         def deco(*args, **kwargs):
-            # Словник для зберігання кешованих результатів
             cache_dict = OrderedDict()
-            # Словник для відстеження кількості використань ключів
             usage_count = {}
-            # Створюємо унікальний ключ на основі аргументів
             cache_key = (args, tuple(kwargs.items()))
 
             if cache_key in cache_dict:
-                # Переміщуємо ключ в кінець словника (LFU-підхід)
                 cache_dict.move_to_end(cache_key, last=True)
-                # Збільшуємо лічильник використань
                 usage_count[cache_key] += 1
                 return cache_dict[cache_key]
             else:
@@ -33,9 +28,7 @@ def cache(max_limit=64):
                 usage_count[cache_key] = 1
 
                 if len(cache_dict) > max_limit:
-                    # Знаходимо ключ з найменшою кількістю використань
                     min_usage_key = min(usage_count, key=usage_count.get)
-                    # Видаляємо цей ключ з кешу
                     del cache_dict[min_usage_key]
                     del usage_count[min_usage_key]
 
@@ -48,8 +41,9 @@ def cache(max_limit=64):
 
 
 def measure_memory(f):
-    """Декоратор для вимірювання використання пам'яті"""
-
+    """
+    Декоратор для вимірювання використання пам'яті
+    """
     @wraps(f)
     def wrapper(*args, **kwargs):
         process = psutil.Process()
