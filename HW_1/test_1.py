@@ -24,14 +24,14 @@ def cache(max_limit=64):
                 return cache_dict[cache_key]
             else:
                 result = f(*args, **kwargs)
-                cache_dict[cache_key] = result
+
                 usage_count[cache_key] = 1
 
                 if len(cache_dict) > max_limit:
                     min_usage_key = min(usage_count, key=usage_count.get)
                     del cache_dict[min_usage_key]
                     del usage_count[min_usage_key]
-
+                cache_dict[cache_key] = result
                 return result
 
 
