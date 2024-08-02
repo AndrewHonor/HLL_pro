@@ -55,8 +55,8 @@ def calculate_average():
     count = 0
     for x in list_of_lists:
         if len(x) > 2:
-            total_sum_long += x[1]
-            total_sum_mass += x[2]
+            total_sum_long += x[2]
+            total_sum_mass += x[1]
             count += 1
     average_long = str(total_sum_long / count)
     average_mass = str(total_sum_mass / count)
