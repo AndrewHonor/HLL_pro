@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from markupsafe import escape
 import secrets
 import string
 import csv
@@ -25,7 +26,8 @@ def generate_password():
     """
     alphabet = string.ascii_letters + string.digits + string.punctuation
     generated_password = ''.join(secrets.choice(alphabet) for _ in range(20))
-    return generated_password
+    print(generated_password)
+    return escape(generated_password)
 
 
 @app.route("/calculate_average")
