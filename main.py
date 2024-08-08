@@ -1,23 +1,20 @@
-@app.route("/generate_password")
-def generate_password():
-    """
-    from 10 to 20 chars
-    upper and lower case
-    """
-    # string
-    # ascii_lowercase
-    # ascii_uppercase
-    # int
-    # special symbols
-    # return password
+def generate_students():
+    # count should be as input GET parameter
+    # first_name, last_name, email, password, birthday (18-60)
+    # save to csv and show on web page
+    # set limit as 1000
     pass
 
-@app.route("/calculate_average")
-def calculate_average():
-    """
-    csv file with students
-    1.calculate average high
-    2.calculate average weight
-    csv - use lib
-    *pandas - use pandas for calculating
-    """
+
+def get_bitcoin_value():
+    # https://bitpay.com/api/rates
+    # /bitcoin_rate?currency=UAH&convert=100
+    # input parameter currency code
+    # default is USD
+    # default count is 1
+    # return value currency of bitcoin
+    # add one more input parameter count and multiply by currency (int)
+    # * https://bitpay.com/api/
+    # * Example: $, €, ₴
+    # * return symbol of input currency code
+    pass

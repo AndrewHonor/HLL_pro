@@ -1,12 +1,20 @@
-from flask import Flask, render_template
-
+from flask import Flask, request, render_template_string
+import requests
 app = Flask(__name__)
+def get_bitcoin_value(currency):
+    """
+    price of one bit_ka in valute.
 
-@app.route('/')
-def index():
-    variable1 = "Hello"
-    variable2 = "World"
-    return render_template('index.html', var1=variable1, var2=variable2)
+    Args:
+        currency (str): Code valute (наприклад, 'USD', 'UAH').
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    Returns:
+        float: price of one bit_ka in valute.
+    """
+    response = requests.get('https://bitpay.com/api/rates')
+    rates = response.json()
+    for rate in rates:
+        if rate['code'] == currency:
+            return rate['rate']
+    raise ValueError(f"Валюта {currency} не знайдена")
+
