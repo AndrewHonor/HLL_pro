@@ -1,20 +1,10 @@
-1.def order_price():
-    # UnitPrice * Quantity - sales.
-    # Calculate sales
-    # Add possibility to get sum of sales data by Country
-    # by default all countries
-    # join two tables invoices and invoices_items
-    pass
-    # show sales by country on page / if no country show all sales by all counties.
+1. Створити клас Circle(x,y,radius). Додати метод contains.
+ Цей метод приймає екземпляр класу Point(x,y). Цей метод має повертати
+ True or False. Якшо точка в колі то True якшо поза колом то False.
 
-2.def get_all_info_about_track():
-    # join all possible tables and show all possible info about all tracks
-    # as input track ID
-    pass
+2. Створити view яка на вхід приймає стиль музики. Має вивести місто
+в якому найбільше слухають цей стиль музики. Якшо жанра немає вивести повідомлення.
+genre - обов'язковий параметер.
+/stats_by_city?genre=HipHop
 
-
-3.def get_all_info_about_track():
-    # *
-    # show time of all tracks of all albums in hours
-    # use info about all tracks
-    pass
+*3. Підготуватися до SQL вікторини. Скачати собі https://kahoot.it/.
