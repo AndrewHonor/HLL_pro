@@ -1,10 +1,7 @@
-# 1.
-# Реалізувати метод square в фігурах які залишилися.(Triangle + Parallelogram).
-#
-# Triangle - треба створити клас
+import math
 
 
-class Shape:  # class Shape(object)
+class Shape:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -14,7 +11,6 @@ class Shape:  # class Shape(object)
 
 
 class Circle(Shape):
-
     def __init__(self, x, y, radius):
         super().__init__(x, y)
         self.radius = radius
@@ -24,7 +20,6 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
-
     def __init__(self, x, y, height, width):
         super().__init__(x, y)
         self.height = height
@@ -35,10 +30,12 @@ class Rectangle(Shape):
 
 
 class Parallelogram(Rectangle):
-
     def __init__(self, x, y, height, width, angle):
         super().__init__(x, y, height, width)
         self.angle = angle
+
+    def square(self):
+        return self.width * self.height * math.sin(math.radians(self.angle))
 
     def print_angle(self):
         print(self.angle)
@@ -49,6 +46,16 @@ class Parallelogram(Rectangle):
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
+
+
+class Triangle(Shape):
+    def __init__(self, x, y, base, height):
+        super().__init__(x, y)
+        self.base = base
+        self.height = height
+
+    def square(self):
+        return 0.5 * self.base * self.height
 
 
 class Scene:
@@ -65,6 +72,30 @@ class Scene:
         pass
 
 
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+class Circle(Shape):
+    def __init__(self, x, y, radius):
+        super().__init__(x, y)
+        self.radius = radius
+
+    def square(self):
+        return math.pi * self.radius ** 2
+
+    def __contains__(self, point):
+        return math.sqrt((self.x - point.x) ** 2 + (self.y - point.y) ** 2) <= self.radius
+
+
+point = Point(1, 2)
+circle = Circle(1, 2, 10)
+
+###
 r = Rectangle(0, 0, 10, 20)
 r1 = Rectangle(10, 0, -10, 20)
 r2 = Rectangle(0, 20, 100, 20)
@@ -86,11 +117,10 @@ scene.add_figure(c1)
 
 scene.total_square()
 
-2.
-5.1
-реалізувати
-через in.
+print(scene.total_square())
 
-Point(1, 2) in Circle(1, 2, 10) -> True or False
-p1 in c1 -> True or False
+print(point in circle)
+p1 = Point(1, 2)
+c1 = Circle(1, 2, 10)
 
+print(p1 in c1)  # True або False
