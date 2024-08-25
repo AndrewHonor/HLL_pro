@@ -22,7 +22,7 @@ class frange:
         return float(current)
 
 
-# Приклад використання
+####
 for i in frange(1, 100, 3.5):
     print(i)
 
