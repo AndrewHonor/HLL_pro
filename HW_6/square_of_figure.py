@@ -77,6 +77,20 @@ class Point:
         self.x = x
         self.y = y
 
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+class Circle(Shape):
+    def __init__(self, x, y, radius):
+        super().__init__(x, y)
+        self.radius = radius
+
+    def square(self):
+        return math.pi * self.radius ** 2
+
+    def __contains__(self, point):
+        return math.sqrt((self.x - point.x) ** 2 + (self.y - point.y) ** 2) <= self.radius
+
 
 point = Point(1, 2)
 circle = Circle(1, 2, 10)
@@ -106,3 +120,7 @@ scene.total_square()
 print(scene.total_square())
 
 print(point in circle)
+p1 = Point(1, 2)
+c1 = Circle(1, 2, 10)
+
+print(p1 in c1)  # True або False
